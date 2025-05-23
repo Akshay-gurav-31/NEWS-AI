@@ -253,112 +253,74 @@
 
         .news-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
             gap: 2rem;
             padding: 2rem 0;
+            width: 100%;
         }
 
         .news-card {
-            background: var(--glass-gradient);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--border-glass);
-            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
             overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
+            transition: all 0.3s ease;
             height: 100%;
+            border: 1px solid var(--border-glass);
             display: flex;
             flex-direction: column;
         }
 
-        .news-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: var(--accent-gradient);
-            transform: scaleX(0);
-            transition: transform 0.3s ease;
-        }
-
-        .news-card:hover::before {
-            transform: scaleX(1);
-        }
-
         .news-card:hover {
-            transform: translateY(-15px) scale(1.02);
+            transform: translateY(-5px);
             box-shadow: var(--shadow-elevated);
             border-color: rgba(102, 126, 234, 0.3);
         }
 
-        .news-image-container {
+        .news-image {
             position: relative;
-            height: 220px;
+            width: 100%;
+            height: 200px;
             overflow: hidden;
+            flex-shrink: 0;
         }
 
-        .news-image {
+        .news-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: all 0.4s ease;
+            transition: transform 0.3s ease;
         }
 
-        .news-card:hover .news-image {
-            transform: scale(1.1);
-        }
-
-        .news-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.7) 100%);
-            opacity: 0;
-            transition: all 0.3s ease;
-        }
-
-        .news-card:hover .news-overlay {
-            opacity: 1;
-        }
-
-        .news-category {
-            position: absolute;
-            top: 1rem;
-            left: 1rem;
-            background: var(--accent-gradient);
-            color: white;
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+        .news-card:hover .news-image img {
+            transform: scale(1.05);
         }
 
         .news-content {
-            padding: 2rem;
+            padding: 1.5rem;
             flex-grow: 1;
             display: flex;
             flex-direction: column;
         }
 
         .news-title {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--text-primary);
+            font-size: 1.25rem;
+            font-weight: 600;
             margin-bottom: 1rem;
+            color: var(--text-primary);
             line-height: 1.4;
-            font-family: 'Space Grotesk', sans-serif;
         }
 
         .news-description {
+            font-size: 0.95rem;
             color: var(--text-secondary);
+            margin-bottom: 1rem;
             line-height: 1.6;
-            margin-bottom: 1.5rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
             flex-grow: 1;
         }
 
@@ -366,36 +328,54 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding-top: 1rem;
-            border-top: 1px solid var(--border-glass);
-            margin-top: auto;
+            margin-bottom: 1rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
         }
 
         .news-source {
-            color: var(--text-muted);
-            font-size: 0.9rem;
             font-weight: 500;
+            color: var(--text-secondary);
         }
 
         .news-date {
             color: var(--text-muted);
-            font-size: 0.8rem;
         }
 
-        .read-more {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: #667eea;
+        .news-link {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: var(--accent-gradient);
+            color: white;
             text-decoration: none;
-            font-weight: 600;
-            margin-top: 1rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 500;
             transition: all 0.3s ease;
+            text-align: center;
         }
 
-        .read-more:hover {
-            color: #764ba2;
-            transform: translateX(5px);
+        .news-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+            color: white;
+        }
+
+        .alert {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-glass);
+            color: var(--text-primary);
+        }
+
+        .alert-danger {
+            background: rgba(220, 53, 69, 0.1);
+            border-color: rgba(220, 53, 69, 0.3);
+        }
+
+        .alert-info {
+            background: rgba(13, 202, 240, 0.1);
+            border-color: rgba(13, 202, 240, 0.3);
         }
 
         .filter-tabs {
@@ -451,6 +431,12 @@
             transition: transform 0.3s ease;
         }
 
+        @media (max-width: 1200px) {
+            .news-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
         @media (max-width: 768px) {
             .hero-title {
                 font-size: 2.5rem;
@@ -458,7 +444,6 @@
             
             .news-grid {
                 grid-template-columns: 1fr;
-                gap: 1.5rem;
             }
             
             .stats-grid {
@@ -474,6 +459,23 @@
                 padding: 0.6rem 1rem;
                 font-size: 0.9rem;
             }
+            
+            .news-card {
+                margin-bottom: 2rem;
+            }
+            
+            .news-image {
+                height: 180px;
+            }
+            
+            .news-title {
+                font-size: 1.1rem;
+            }
+            
+            .loading-container {
+                max-width: 90%;
+                padding: 2rem;
+            }
         }
 
         .fade-in {
@@ -488,6 +490,325 @@
                 transform: translateY(0);
             }
         }
+
+        .loading-container {
+            text-align: center;
+            padding: 4rem;
+            width: 100%;
+            max-width: 600px;
+            margin: 2rem auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 200px;
+        }
+
+        .loading-spinner {
+            width: 80px;
+            height: 80px;
+            border: 4px solid rgba(102, 126, 234, 0.1);
+            border-radius: 50%;
+            border-top-color: #667eea;
+            animation: spin 1s ease-in-out infinite;
+            margin-bottom: 1.5rem;
+        }
+
+        .loading-text {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin-top: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            width: 100%;
+            text-align: center;
+        }
+
+        .loading-dots {
+            display: inline-flex;
+            gap: 0.3rem;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .loading-dots span {
+            width: 8px;
+            height: 8px;
+            background: #667eea;
+            border-radius: 50%;
+            animation: bounce 1.4s infinite ease-in-out;
+        }
+
+        .loading-dots span:nth-child(1) { animation-delay: -0.32s; }
+        .loading-dots span:nth-child(2) { animation-delay: -0.16s; }
+
+        @keyframes bounce {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1); }
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loading-pulse {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            margin-bottom: 1.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .loading-pulse::before,
+        .loading-pulse::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 50%;
+            background: rgba(102, 126, 234, 0.2);
+            animation: pulse 2s ease-out infinite;
+        }
+
+        .loading-pulse::after {
+            animation-delay: 1s;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.5); opacity: 0; }
+            50% { opacity: 0.5; }
+            100% { transform: scale(1.5); opacity: 0; }
+        }
+
+        .retry-button {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background: var(--accent-gradient);
+            color: white;
+            border-radius: 25px;
+            text-decoration: none;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .retry-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+            color: white;
+        }
+
+        .search-results {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border-glass);
+            border-radius: 15px;
+            margin-top: 10px;
+            padding: 1rem;
+            z-index: 1000;
+            display: none;
+        }
+
+        .search-results.active {
+            display: block;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-secondary);
+        }
+
+        .search-result-item {
+            padding: 0.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .search-result-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin: 2rem 0;
+        }
+
+        .pagination-item {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-glass);
+            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .pagination-item:hover,
+        .pagination-item.active {
+            background: var(--accent-gradient);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .pagination-item.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        .load-more {
+            display: block;
+            width: 200px;
+            margin: 2rem auto;
+            padding: 1rem 2rem;
+            background: var(--accent-gradient);
+            color: white;
+            text-align: center;
+            border-radius: 25px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .load-more:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+            color: white;
+        }
+
+        .news-section {
+            position: relative;
+            min-height: 400px;
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .news-section .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .about-section {
+            padding: 6rem 0;
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid var(--border-glass);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            background: linear-gradient(135deg, #ffffff 0%, #667eea 50%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .about-card {
+            background: var(--glass-gradient);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border-glass);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .about-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-elevated);
+            border-color: rgba(102, 126, 234, 0.3);
+        }
+
+        .about-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: #667eea;
+        }
+
+        .about-card h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .about-card p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .team-mission {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 3rem;
+            background: var(--glass-gradient);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border-glass);
+            border-radius: 20px;
+        }
+
+        .team-mission h3 {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        .team-mission p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        @media (max-width: 768px) {
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .team-mission {
+                padding: 2rem;
+            }
+
+            .team-mission h3 {
+                font-size: 1.5rem;
+            }
+
+            .team-mission p {
+                font-size: 1rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -497,39 +818,31 @@
 
     <nav class="navbar navbar-expand-lg" id="navbar">
         <div class="container">
-            <a class="navbar-brand" href="#">
-                <i class="fas fa-heartbeat me-2"></i>HealthPro
-            </a>
+            <a class="navbar-brand" href="/">Health News Pro</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="fas fa-home me-1"></i>Home</a>
+                        <a class="nav-link" href="/">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="fas fa-newspaper me-1"></i>Latest</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="fas fa-chart-line me-1"></i>Trends</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="fas fa-user-md me-1"></i>Expert</a>
+                        <a class="nav-link" href="/#about">About</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <div class="hero-section">
+    <section class="hero-section">
         <div class="container">
-            <h1 class="hero-title fade-in">Health News Revolution</h1>
-            <p class="hero-subtitle fade-in">Stay informed with cutting-edge medical breakthroughs and health insights</p>
+            <h1 class="hero-title fade-in">Stay Informed with Health News</h1>
+            <p class="hero-subtitle fade-in">Get the latest updates on health, wellness, and medical research</p>
             
             <div class="search-container fade-in">
                 <i class="fas fa-search search-icon"></i>
-                <input type="text" class="search-input" placeholder="Search health topics, diseases, treatments...">
+                <input type="text" id="searchInput" class="search-input" placeholder="Search health news...">
             </div>
 
             <div class="stats-grid fade-in">
@@ -551,152 +864,108 @@
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <div class="container">
-        <div class="filter-tabs fade-in">
-            <a href="#" class="filter-tab active">All News</a>
-            <a href="#" class="filter-tab">Breaking</a>
-            <a href="#" class="filter-tab">Research</a>
-            <a href="#" class="filter-tab">Wellness</a>
-            <a href="#" class="filter-tab">Technology</a>
-            <a href="#" class="filter-tab">Prevention</a>
+    <section class="news-section">
+        <div class="container">
+            {% if error %}
+            <div class="alert alert-danger" role="alert">
+                {{ error }}
+            </div>
+            {% else %}
+            <div class="news-grid" id="newsContainer">
+                {% if articles %}
+                    {% for article in articles %}
+                    <div class="news-card fade-in">
+                        <div class="news-image">
+                            <img src="{{ article.image_url }}" alt="{{ article.title }}" 
+                                 onerror="this.onerror=null; this.src='https://via.placeholder.com/400x200?text=No+Image+Available';">
+                        </div>
+                        <div class="news-content">
+                            <h3 class="news-title">{{ article.title }}</h3>
+                            <p class="news-description">{{ article.description }}</p>
+                            <div class="news-meta">
+                                <span class="news-source">{{ article.source }}</span>
+                                <span class="news-date">{{ article.published_at }}</span>
+                            </div>
+                            <a href="{{ article.url }}" class="news-link" target="_blank">Read More</a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="loading-container">
+                        <div class="loading-pulse"></div>
+                        <div class="loading-text">
+                            <span>Loading Latest News</span>
+                            <div class="loading-dots">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+            {% endif %}
         </div>
+    </section>
 
-        <div class="news-grid" id="newsGrid">
-            <!-- Sample News Cards -->
-            <article class="news-card fade-in">
-                <div class="news-image-container">
-                    <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=400&h=250&fit=crop" alt="Medical Research" class="news-image">
-                    <div class="news-overlay"></div>
-                    <span class="news-category">Research</span>
-                </div>
-                <div class="news-content">
-                    <h2 class="news-title">Revolutionary Gene Therapy Shows Promise in Cancer Treatment</h2>
-                    <p class="news-description">Scientists have developed a groundbreaking gene therapy approach that targets specific cancer cells while preserving healthy tissue, marking a significant advancement in personalized medicine.</p>
-                    <div class="news-meta">
-                        <span class="news-source">Medical Journal</span>
-                        <span class="news-date">2 hours ago</span>
+    <section class="about-section" id="about">
+        <div class="container">
+            <div class="about-content">
+                <h2 class="section-title">About Team Nexora</h2>
+                <div class="about-grid">
+                    <div class="about-card">
+                        <div class="about-icon">
+                            <i class="fas fa-newspaper"></i>
+                        </div>
+                        <h3>Health News Aggregation</h3>
+                        <p>We aggregate the latest health news from reliable sources worldwide, providing you with up-to-date information on medical research, wellness, and healthcare developments.</p>
                     </div>
-                    <a href="#" class="read-more">
-                        Read Full Article <i class="fas fa-arrow-right"></i>
-                    </a>
-                </div>
-            </article>
-
-            <article class="news-card fade-in">
-                <div class="news-image-container">
-                    <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=400&h=250&fit=crop" alt="Heart Health" class="news-image">
-                    <div class="news-overlay"></div>
-                    <span class="news-category">Prevention</span>
-                </div>
-                <div class="news-content">
-                    <h2 class="news-title">New Study Reveals 5 Simple Habits That Cut Heart Disease Risk by 80%</h2>
-                    <p class="news-description">A comprehensive 20-year study involving 100,000 participants identifies key lifestyle factors that dramatically reduce cardiovascular disease risk across all age groups.</p>
-                    <div class="news-meta">
-                        <span class="news-source">CardioHealth Today</span>
-                        <span class="news-date">4 hours ago</span>
+                    <div class="about-card">
+                        <div class="about-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <h3>Smart Search</h3>
+                        <p>Our intelligent search system helps you find relevant health news quickly, filtering through multiple categories including nutrition, fitness, medical research, and more.</p>
                     </div>
-                    <a href="#" class="read-more">
-                        Read Full Article <i class="fas fa-arrow-right"></i>
-                    </a>
-                </div>
-            </article>
-
-            <article class="news-card fade-in">
-                <div class="news-image-container">
-                    <img src="https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=400&h=250&fit=crop" alt="AI in Healthcare" class="news-image">
-                    <div class="news-overlay"></div>
-                    <span class="news-category">Technology</span>
-                </div>
-                <div class="news-content">
-                    <h2 class="news-title">AI Diagnostics Achieve 95% Accuracy in Early Disease Detection</h2>
-                    <p class="news-description">Machine learning algorithms now outperform traditional diagnostic methods, offering hope for earlier intervention and better patient outcomes across multiple conditions.</p>
-                    <div class="news-meta">
-                        <span class="news-source">Tech Medicine</span>
-                        <span class="news-date">6 hours ago</span>
+                    <div class="about-card">
+                        <div class="about-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <h3>Verified Sources</h3>
+                        <p>We ensure all news articles come from trusted and verified sources, maintaining high standards of accuracy and reliability in health information.</p>
                     </div>
-                    <a href="#" class="read-more">
-                        Read Full Article <i class="fas fa-arrow-right"></i>
-                    </a>
-                </div>
-            </article>
-
-            <article class="news-card fade-in">
-                <div class="news-image-container">
-                    <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=400&h=250&fit=crop" alt="Mental Health" class="news-image">
-                    <div class="news-overlay"></div>
-                    <span class="news-category">Wellness</span>
-                </div>
-                <div class="news-content">
-                    <h2 class="news-title">Breakthrough in Mental Health: Digital Therapy Shows Clinical Results</h2>
-                    <p class="news-description">App-based cognitive behavioral therapy demonstrates effectiveness comparable to traditional therapy, making mental health support more accessible worldwide.</p>
-                    <div class="news-meta">
-                        <span class="news-source">Mental Health Weekly</span>
-                        <span class="news-date">8 hours ago</span>
+                    <div class="about-card">
+                        <div class="about-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <h3>Real-time Updates</h3>
+                        <p>Stay informed with our real-time news updates, bringing you the latest developments in health and wellness as they happen.</p>
                     </div>
-                    <a href="#" class="read-more">
-                        Read Full Article <i class="fas fa-arrow-right"></i>
-                    </a>
                 </div>
-            </article>
-
-            <article class="news-card fade-in">
-                <div class="news-image-container">
-                    <img src="https://images.unsplash.com/photo-1584515933487-779824d29309?w=400&h=250&fit=crop" alt="Vaccine Development" class="news-image">
-                    <div class="news-overlay"></div>
-                    <span class="news-category">Breaking</span>
+                <div class="team-mission">
+                    <h3>Our Mission</h3>
+                    <p>Team Nexora is dedicated to making health information accessible and understandable for everyone. We believe in empowering individuals with accurate, timely, and relevant health news to make informed decisions about their well-being.</p>
                 </div>
-                <div class="news-content">
-                    <h2 class="news-title">Universal Flu Vaccine Enters Final Trial Phase</h2>
-                    <p class="news-description">Researchers announce promising results from Phase III trials of a revolutionary vaccine that could provide lifelong protection against all influenza strains.</p>
-                    <div class="news-meta">
-                        <span class="news-source">Global Health News</span>
-                        <span class="news-date">12 hours ago</span>
-                    </div>
-                    <a href="#" class="read-more">
-                        Read Full Article <i class="fas fa-arrow-right"></i>
-                    </a>
-                </div>
-            </article>
-
-            <article class="news-card fade-in">
-                <div class="news-image-container">
-                    <img src="https://images.unsplash.com/photo-1559757175-0eb30cd8c063?w=400&h=250&fit=crop" alt="Nutrition Science" class="news-image">
-                    <div class="news-overlay"></div>
-                    <span class="news-category">Research</span>
-                </div>
-                <div class="news-content">
-                    <h2 class="news-title">Personalized Nutrition Based on Genetic Markers Shows Superior Results</h2>
-                    <p class="news-description">Tailored dietary recommendations using individual genetic profiles prove more effective than one-size-fits-all approaches in managing diabetes and obesity.</p>
-                    <div class="news-meta">
-                        <span class="news-source">Nutrition Science</span>
-                        <span class="news-date">1 day ago</span>
-                    </div>
-                    <a href="#" class="read-more">
-                        Read Full Article <i class="fas fa-arrow-right"></i>
-                    </a>
-                </div>
-            </article>
+            </div>
         </div>
-    </div>
+    </section>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         // Create floating particles
         function createParticles() {
-            const particlesContainer = document.getElementById('particles');
-            const particleCount = 50;
-
-            for (let i = 0; i < particleCount; i++) {
+            const container = document.getElementById('particles');
+            for (let i = 0; i < 50; i++) {
                 const particle = document.createElement('div');
                 particle.className = 'particle';
-                particle.style.left = Math.random() * 100 + '%';
+                particle.style.left = Math.random() * 100 + 'vw';
                 particle.style.animationDelay = Math.random() * 15 + 's';
-                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
-                particlesContainer.appendChild(particle);
+                container.appendChild(particle);
             }
         }
+        createParticles();
 
         // Scroll indicator
         function updateScrollIndicator() {
@@ -739,75 +1008,200 @@
             });
         }
 
-        // Filter tabs functionality
-        function setupFilterTabs() {
-            const filterTabs = document.querySelectorAll('.filter-tab');
-            
-            filterTabs.forEach(tab => {
-                tab.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    
-                    // Remove active class from all tabs
-                    filterTabs.forEach(t => t.classList.remove('active'));
-                    
-                    // Add active class to clicked tab
-                    tab.classList.add('active');
-                    
-                    // Here you would typically filter the news cards
-                    // For demo purposes, we'll just add a visual effect
-                    const newsCards = document.querySelectorAll('.news-card');
-                    newsCards.forEach((card, index) => {
-                        card.style.opacity = '0.5';
-                        setTimeout(() => {
-                            card.style.opacity = '1';
-                        }, index * 50);
-                    });
-                });
-            });
-        }
-
         // Search functionality
-        function setupSearch() {
-            const searchInput = document.querySelector('.search-input');
-            
-            searchInput.addEventListener('input', (e) => {
-                const searchTerm = e.target.value.toLowerCase();
-                const newsCards = document.querySelectorAll('.news-card');
-                
-                newsCards.forEach(card => {
-                    const title = card.querySelector('.news-title').textContent.toLowerCase();
-                    const description = card.querySelector('.news-description').textContent.toLowerCase();
-                    
-                    if (title.includes(searchTerm) || description.includes(searchTerm)) {
-                        card.style.display = 'flex';
-                        card.style.opacity = '1';
-                    } else {
-                        card.style.opacity = '0.3';
-                    }
-                });
-            });
+        let searchTimeout;
+        const searchInput = document.getElementById('searchInput');
+        const newsContainer = document.getElementById('newsContainer');
+        let isLoading = false;
+
+        function showLoading() {
+            isLoading = true;
+            newsContainer.innerHTML = `
+                <div class="loading-container">
+                    <div class="loading-pulse"></div>
+                    <div class="loading-text">
+                        <span>Loading Latest News</span>
+                        <div class="loading-dots">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
+                </div>
+            `;
         }
 
-        // Auto-refresh functionality
-        function setupAutoRefresh() {
-            // Auto-refresh the page every 1 minute
-            setInterval(function() {
-                window.location.reload();
-            }, 60000);
+        function hideLoading() {
+            isLoading = false;
         }
 
-        // Call setup functions on page load
-        document.addEventListener('DOMContentLoaded', () => {
-            createParticles();
+        function showRetryLoading() {
+            isLoading = true;
+            newsContainer.innerHTML = `
+                <div class="loading-container">
+                    <div class="loading-pulse"></div>
+                    <div class="loading-text">
+                        <span>Retrying to Fetch News</span>
+                        <div class="loading-dots">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function updateNewsContainer(data) {
+            if (!data.articles || data.articles.length === 0) {
+                newsContainer.innerHTML = `
+                    <div class="loading-container">
+                        <div class="loading-pulse"></div>
+                        <div class="loading-text">
+                            <span>Loading Latest News</span>
+                            <div class="loading-dots">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                setTimeout(() => loadPage(1), 2000);
+                return;
+            }
+
+            const articlesHtml = data.articles.map(article => `
+                <div class="news-card fade-in">
+                    <div class="news-image">
+                        <img src="${article.image_url}" alt="${article.title}" 
+                             onerror="this.onerror=null; this.src='https://via.placeholder.com/400x200?text=No+Image+Available';">
+                    </div>
+                    <div class="news-content">
+                        <h3 class="news-title">${article.title}</h3>
+                        <p class="news-description">${article.description || ''}</p>
+                        <div class="news-meta">
+                            <span class="news-source">${article.source}</span>
+                            <span class="news-date">${article.published_at}</span>
+                        </div>
+                        <a href="${article.url}" class="news-link" target="_blank">Read More</a>
+                    </div>
+                </div>
+            `).join('');
+
+            newsContainer.innerHTML = articlesHtml;
             setupAnimations();
-            setupFilterTabs();
-            setupSearch();
-            setupAutoRefresh();
+        }
+
+        function loadPage(page) {
+            const query = searchInput.value.trim();
+            showLoading();
+            
+            fetch(`/search?q=${encodeURIComponent(query)}`)
+                .then(response => response.json())
+                .then(data => {
+                    hideLoading();
+                    if (data.error) {
+                        showRetryLoading();
+                        setTimeout(() => loadPage(1), 2000);
+                        return;
+                    }
+                    updateNewsContainer(data);
+                })
+                .catch(error => {
+                    hideLoading();
+                    showRetryLoading();
+                    setTimeout(() => loadPage(1), 2000);
+                    console.error('Error:', error);
+                });
+        }
+
+        searchInput.addEventListener('input', function(e) {
+            clearTimeout(searchTimeout);
+            const query = e.target.value.trim();
+            
+            if (query.length < 2) {
+                return;
+            }
+
+            showLoading();
+
+            searchTimeout = setTimeout(() => {
+                fetch(`/search?q=${encodeURIComponent(query)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        hideLoading();
+                        if (data.error) {
+                            showRetryLoading();
+                            setTimeout(() => {
+                                searchInput.dispatchEvent(new Event('input'));
+                            }, 2000);
+                            return;
+                        }
+                        updateNewsContainer(data);
+                    })
+                    .catch(error => {
+                        hideLoading();
+                        showRetryLoading();
+                        setTimeout(() => {
+                            searchInput.dispatchEvent(new Event('input'));
+                        }, 2000);
+                        console.error('Error:', error);
+                    });
+            }, 500);
+        });
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', () => {
+            setupAnimations();
+            // Load initial news
+            if (document.getElementById('newsContainer').children.length === 0) {
+                loadPage(1);
+            }
         });
 
         window.addEventListener('scroll', () => {
             updateScrollIndicator();
             handleNavbarScroll();
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Update active nav link on scroll
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 60) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').includes(current)) {
+                    link.classList.add('active');
+                }
+            });
         });
     </script>
 </body>
